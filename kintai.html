@@ -1,5 +1,5 @@
 <!-- ========================================================= -->
-<!-- PART 1：HTMLヘッダ ＋ 青テーマCSS -->
+<!-- PART 1：HTMLヘッダ ＋ 淡い青基調CSS（復元版） -->
 <!-- ========================================================= -->
 
 <!DOCTYPE html>
@@ -12,13 +12,13 @@
 /* ===== 全体 ===== */
 body {
     font-family: "Segoe UI", sans-serif;
-    background: #f0f6ff;
+    background: #eef5ff; /* ← 淡い青 */
     margin: 0;
     padding: 20px;
 }
 
 h1 {
-    color: #1a4fb7;
+    color: #2a5bd7; /* ← 濃すぎない青 */
     margin-bottom: 20px;
 }
 
@@ -33,19 +33,19 @@ h1 {
 label {
     width: 120px;
     font-weight: bold;
-    color: #1a4fb7;
+    color: #2a5bd7;
 }
 
 input, select {
     padding: 6px 10px;
-    border: 1px solid #1a4fb7;
+    border: 1px solid #2a5bd7;
     border-radius: 4px;
-    background: white;
+    background: #ffffff;
 }
 
 /* ===== ボタン ===== */
 button {
-    background: #1a4fb7;
+    background: #2a5bd7;
     color: white;
     border: none;
     padding: 8px 14px;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-    background: #163f92;
+    background: #1f49b0;
 }
 
 /* ===== タブ ===== */
@@ -66,15 +66,15 @@ button:hover {
 
 .tab {
     padding: 8px 14px;
-    border: 1px solid #1a4fb7;
+    border: 1px solid #2a5bd7;
     cursor: pointer;
-    background: #e3ecff;
+    background: #e8f0ff; /* ← 淡い青 */
     border-radius: 4px 4px 0 0;
     margin-right: 4px;
 }
 
 .tab.active {
-    background: #1a4fb7;
+    background: #2a5bd7;
     color: white;
 }
 
@@ -87,15 +87,15 @@ table {
 }
 
 th {
-    background: #1a4fb7;
+    background: #2a5bd7;
     color: white;
     padding: 8px;
-    border: 1px solid #1a4fb7;
+    border: 1px solid #2a5bd7;
 }
 
 td {
     padding: 8px;
-    border: 1px solid #1a4fb7;
+    border: 1px solid #2a5bd7;
 }
 
 /* ===== 管理者画面 ===== */
@@ -109,8 +109,17 @@ td {
 <!-- ========================================================= -->
 
 <body>
+
+<!-- モード切替タブ（入力／参照／管理者） -->
+<div class="tabs">
+    <div id="tab-mode-input" class="tab active" onclick="switchMode('input')">入力モード</div>
+    <div id="tab-mode-ref" class="tab" onclick="switchMode('reference')">参照モード</div>
+    <div id="tab-mode-admin" class="tab" onclick="switchMode('admin')">管理者モード</div>
+</div>
+
 <h1>勤怠入力システム（GitHub保存版）</h1>
 
+<!-- 入力画面 -->
 <div id="input-screen">
 
     <h2>入力画面</h2>
@@ -139,7 +148,7 @@ td {
         <input id="name" type="text">
     </div>
 
-    <!-- パスワード -->
+    <!-- パスワード（一般ユーザー用） -->
     <div class="row">
         <label>パスワード</label>
         <input id="password" type="password">
@@ -147,7 +156,7 @@ td {
 
     <hr>
 
-    <!-- タブ切り替え -->
+    <!-- 入力方法タブ（個別／範囲） -->
     <div class="tabs">
         <div id="tab-single" class="tab active" onclick="switchTab('single')">個別入力</div>
         <div id="tab-range" class="tab" onclick="switchTab('range')">範囲入力</div>
@@ -224,13 +233,14 @@ td {
     </table>
 
     <button onclick="saveData()">保存 (GitHub)</button>
-    <button onclick="loadData()">参照</button>
+    <button onclick="switchMode('reference')">参照へ移動</button>
 
 </div>
 <!-- ========================================================= -->
 <!-- PART 3：参照画面（閲覧モード） -->
 <!-- ========================================================= -->
 
+<!-- 参照画面 -->
 <div id="reference-screen" style="display:none;">
 
     <h2>参照画面</h2>
@@ -259,7 +269,7 @@ td {
         <input id="refName" type="text">
     </div>
 
-    <!-- パスワード -->
+    <!-- パスワード（一般ユーザー用） -->
     <div class="row">
         <label>パスワード</label>
         <input id="refPassword" type="password">
@@ -286,6 +296,7 @@ td {
 <!-- PART 4：管理者画面（一覧生成） -->
 <!-- ========================================================= -->
 
+<!-- 管理者画面 -->
 <div id="admin-screen" style="display:none;">
 
     <h2>管理者ビュー</h2>
@@ -308,16 +319,17 @@ td {
         </select>
     </div>
 
+    <!-- 管理者一覧生成ボタン -->
     <button onclick="loadAdmin()">一覧生成 (GitHub)</button>
 
     <hr>
 
-    <!-- 管理者一覧テーブル -->
+    <!-- 管理者一覧テーブル表示領域 -->
     <div id="adminTableArea"></div>
 
 </div>
 <!-- ========================================================= -->
-<!-- PART 5：JavaScript（完全版・Worker対応） -->
+<!-- PART 5：JavaScript（淡い青CSS対応・パスワード2種対応） -->
 <!-- ========================================================= -->
 
 <script>
@@ -332,7 +344,41 @@ const WORKER_URL = "https://patient-violet-af9d.k-exe-kita.workers.dev";
 let tempRecords = [];
 
 /* -----------------------------------------------
-★ タブ切替
+★ モード切替（入力／参照／管理者）
+----------------------------------------------- */
+function switchMode(mode) {
+
+    // タブの見た目リセット
+    document.getElementById('tab-mode-input').classList.remove('active');
+    document.getElementById('tab-mode-ref').classList.remove('active');
+    document.getElementById('tab-mode-admin').classList.remove('active');
+
+    // 管理者モードはパスワードチェック
+    if (mode === 'admin') {
+        const pw = prompt("管理者パスワードを入力してください");
+        if (pw !== "alladmin") {
+            alert("管理者パスワードが違います");
+            return;
+        }
+    }
+
+    // タブの見た目
+    if (mode === 'input') {
+        document.getElementById('tab-mode-input').classList.add('active');
+    } else if (mode === 'reference') {
+        document.getElementById('tab-mode-ref').classList.add('active');
+    } else {
+        document.getElementById('tab-mode-admin').classList.add('active');
+    }
+
+    // 画面切替
+    document.getElementById('input-screen').style.display = (mode === 'input') ? 'block' : 'none';
+    document.getElementById('reference-screen').style.display = (mode === 'reference') ? 'block' : 'none';
+    document.getElementById('admin-screen').style.display = (mode === 'admin') ? 'block' : 'none';
+}
+
+/* -----------------------------------------------
+★ 入力タブ切替（個別／範囲）
 ----------------------------------------------- */
 function switchTab(mode) {
     document.getElementById('tab-single').classList.remove('active');
@@ -423,7 +469,7 @@ function deleteRecord(index) {
 }
 
 /* -----------------------------------------------
-★ 保存（GitHub Worker）
+★ 保存（一般ユーザー）
 ----------------------------------------------- */
 async function saveData() {
     const month = document.getElementById('procMonth').value;
@@ -442,6 +488,7 @@ async function saveData() {
         team,
         name,
         password,
+        passwordType: "user",   // ← 一般ユーザー
         records: tempRecords
     };
 
@@ -455,7 +502,7 @@ async function saveData() {
 }
 
 /* -----------------------------------------------
-★ 参照（GitHub Worker）
+★ 参照（一般ユーザー）
 ----------------------------------------------- */
 async function loadData() {
     const month = document.getElementById('refMonth').value;
@@ -468,7 +515,8 @@ async function loadData() {
         month,
         team,
         name,
-        password
+        password,
+        passwordType: "user"
     };
 
     const res = await fetch(WORKER_URL, {
@@ -493,7 +541,7 @@ async function loadData() {
 }
 
 /* -----------------------------------------------
-★ 管理者一覧生成
+★ 管理者一覧生成（管理者）
 ----------------------------------------------- */
 async function loadAdmin() {
     const month = document.getElementById('adminMonth').value;
@@ -502,7 +550,8 @@ async function loadAdmin() {
     const payload = {
         mode: "admin",
         month,
-        team
+        team,
+        passwordType: "admin"
     };
 
     const res = await fetch(WORKER_URL, {
