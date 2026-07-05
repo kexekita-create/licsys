@@ -488,7 +488,7 @@ async function saveData() {
         name,
         password,
         passwordType: "user",   // ← 一般ユーザー
-        records: tempRecords
+        records: tempRecords,
         date: new Date().toISOString().slice(0, 10)   // ← ★ここを追加
     };
     const res = await fetch(WORKER_URL, {
@@ -515,7 +515,7 @@ async function loadData() {
         team,
         name,
         password,
-        passwordType: "user"
+        passwordType: "user",
         date: new Date().toISOString().slice(0, 10)   // ← ★ここを追加
     };
 
@@ -551,7 +551,7 @@ async function loadAdmin() {
         mode: "admin",
         month,
         team,
-        passwordType: "admin"
+        passwordType: "admin",
         date: new Date().toISOString().slice(0, 10)   // ← ★ここを追加
     };
 
