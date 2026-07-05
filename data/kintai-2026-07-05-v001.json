@@ -1,0 +1,17 @@
+{
+  "mode": "save",
+  "project": "kintai",
+  "month": "2026-07",
+  "team": "T1",
+  "name": "w",
+  "password": "1",
+  "passwordType": "user",
+  "records": [
+    {
+      "date": "2026-07-08",
+      "kubun": "行先変更",
+      "tekiyo": "1"
+    }
+  ],
+  "date": "2026-07-05"
+}
