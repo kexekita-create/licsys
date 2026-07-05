@@ -5,15 +5,100 @@
 <title>勤怠入力システム（GitHub保存版）</title>
 
 <style>
-/* 必要最低限のスタイル（前と同じ） */
-body { font-family: sans-serif; padding: 20px; }
-.row { margin: 10px 0; }
-.readonly { background: #eee; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border: 1px solid #ccc; padding: 4px; }
-.tabs { display: flex; margin-top: 10px; }
-.tab { padding: 8px 16px; border: 1px solid #ccc; cursor: pointer; }
-.tab.active { background: #ddd; }
+/* ===== 全体 ===== */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #f0f6ff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #1a4fb7;
+    margin-bottom: 20px;
+}
+
+/* ===== 入力行 ===== */
+.row {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+label {
+    width: 120px;
+    font-weight: bold;
+    color: #1a4fb7;
+}
+
+input, select {
+    padding: 6px 10px;
+    border: 1px solid #1a4fb7;
+    border-radius: 4px;
+    background: white;
+}
+
+/* ===== ボタン ===== */
+button {
+    background: #1a4fb7;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background: #163f92;
+}
+
+/* ===== タブ ===== */
+.tabs {
+    display: flex;
+    margin-top: 10px;
+}
+
+.tab {
+    padding: 8px 14px;
+    border: 1px solid #1a4fb7;
+    cursor: pointer;
+    background: #e3ecff;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+}
+
+.tab.active {
+    background: #1a4fb7;
+    color: white;
+}
+
+/* ===== テーブル ===== */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    background: white;
+}
+
+th {
+    background: #1a4fb7;
+    color: white;
+    padding: 8px;
+    border: 1px solid #1a4fb7;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #1a4fb7;
+}
+
+/* ===== 管理者画面 ===== */
+#adminTableArea {
+    margin-top: 20px;
+}
+
 </style>
 </head>
 
