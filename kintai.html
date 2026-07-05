@@ -12,13 +12,14 @@
 /* ===== 全体 ===== */
 body {
     font-family: "Segoe UI", sans-serif;
-    background: #eef5ff; /* ← 淡い青 */
+    background: #eef5ff;          /* 画像の淡い青背景 */
     margin: 0;
     padding: 20px;
 }
 
+/* ===== タイトル ===== */
 h1 {
-    color: #2a5bd7; /* ← 濃すぎない青 */
+    color: #2a5bd7;               /* 画像の青 */
     margin-bottom: 20px;
 }
 
@@ -31,21 +32,21 @@ h1 {
 }
 
 label {
-    width: 120px;
+    width: 140px;                 /* 画像の幅に合わせる */
     font-weight: bold;
     color: #2a5bd7;
 }
 
 input, select {
     padding: 6px 10px;
-    border: 1px solid #2a5bd7;
+    border: 1px solid #2a5bd7;    /* 青枠 */
     border-radius: 4px;
-    background: #ffffff;
+    background: #ffffff;          /* 白背景 */
 }
 
 /* ===== ボタン ===== */
 button {
-    background: #2a5bd7;
+    background: #2a5bd7;          /* 画像の青 */
     color: white;
     border: none;
     padding: 8px 14px;
@@ -58,7 +59,7 @@ button:hover {
     background: #1f49b0;
 }
 
-/* ===== タブ ===== */
+/* ===== モード切替タブ（入力／参照／管理者） ===== */
 .tabs {
     display: flex;
     margin-top: 10px;
@@ -66,15 +67,16 @@ button:hover {
 
 .tab {
     padding: 8px 14px;
-    border: 1px solid #2a5bd7;
+    border: 1px solid #2a5bd7;    /* 青枠 */
     cursor: pointer;
-    background: #e8f0ff; /* ← 淡い青 */
+    background: #ffffff;          /* 白背景（画像通り） */
     border-radius: 4px 4px 0 0;
     margin-right: 4px;
+    color: #2a5bd7;               /* 青文字 */
 }
 
 .tab.active {
-    background: #2a5bd7;
+    background: #2a5bd7;          /* 選択時は青 */
     color: white;
 }
 
@@ -87,7 +89,7 @@ table {
 }
 
 th {
-    background: #2a5bd7;
+    background: #2a5bd7;          /* 青ヘッダ */
     color: white;
     padding: 8px;
     border: 1px solid #2a5bd7;
@@ -95,13 +97,14 @@ th {
 
 td {
     padding: 8px;
-    border: 1px solid #2a5bd7;
+    border: 1px solid #2a5bd7;    /* 青枠 */
 }
 
 /* ===== 管理者画面 ===== */
 #adminTableArea {
     margin-top: 20px;
 }
+
 </style>
 </head>
 <!-- ========================================================= -->
